@@ -8,7 +8,7 @@ create = mysql.connector.connect(
 
 create_cursor = create.cursor()
 
-create_cursor.execute("CREATE DATABASE IF NOT EXISTS DBbusCommPtr")
+create_cursor.execute("CREATE DATABASE IF NOT EXISTS DB")
 
 create_cursor.execute("SHOW DATABASES")
 
@@ -19,13 +19,13 @@ db = mysql.connector.connect(
     host="localhost",
     user="root",
     passwd="936700",
-    database="DBbusCommPtr"
+    database="DB"
 )
 
 db_cursor = db.cursor()
 
 db_cursor.execute("""
-                CREATE TABLE IF NOT EXISTS busCommPtr (
+                CREATE TABLE IF NOT EXISTS list (
                 id INT, 
                 name VARCHAR(100), 
                 type VARCHAR(100), 
@@ -40,7 +40,7 @@ db_cursor.execute("""
                 """)
 
 db_cursor.execute("""
-                INSERT INTO busCommPtr (id, name, type, sector, resources, indiv, email, phone, address, date)
+                INSERT INTO list (id, name, type, sector, resources, indiv, email, phone, address, date)
                 VALUES
                 (1, 'ABC Tech Solutions', 'Business', 'Technology', 'IT consulting, mentorship', 'John Doe', 'john.doe@abctech.com', '123-456-7890', '123 Main St', '2023-01-01'),
                 (2, 'Community Health Clinic', 'Community', 'Healthcare', 'Health education programs', 'Jane Smith', 'jane.smith@healthclinic.org', '987-654-3210', '456 Oak Ave', '2023-02-15'),
