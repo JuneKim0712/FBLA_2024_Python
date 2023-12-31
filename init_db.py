@@ -31,7 +31,7 @@ db_cursor.execute("""
                 type VARCHAR(100), 
                 sector VARCHAR(100), 
                 resources TEXT,
-                indiv VARCHAR(100),
+                individual VARCHAR(100),
                 email VARCHAR(100),
                 phone VARCHAR(100),
                 address VARCHAR(100),
@@ -40,7 +40,7 @@ db_cursor.execute("""
                 """)
 
 db_cursor.execute("""
-                INSERT INTO list (id, name, type, sector, resources, indiv, email, phone, address, date)
+                INSERT INTO list (id, name, type, sector, resources, individual, email, phone, address, date)
                 VALUES
                 (1, 'ABC Tech Solutions', 'Business', 'Technology', 'IT consulting, mentorship', 'John Doe', 'john.doe@abctech.com', '123-456-7890', '123 Main St', '2023-01-01'),
                 (2, 'Community Health Clinic', 'Community', 'Healthcare', 'Health education programs', 'Jane Smith', 'jane.smith@healthclinic.org', '987-654-3210', '456 Oak Ave', '2023-02-15'),
