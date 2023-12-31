@@ -11,7 +11,7 @@ class Database:
         )
         self.mycursor=self.db.cursor()
         
-    def all(self):
+    def list_all(self):
         sql = "SELECT * FROM list"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
@@ -53,3 +53,14 @@ class Database:
         values = (id, name, type, sector, resources, individual, email, phone, address, date)
         self.mycursor.execute(sql, values)
         self.db.commit()
+        return
+    
+    def alter(self, id, name, type, sector, resources, individual, email, phone, address, date):
+        sql = """   UPDATE list 
+                    SET name = %s, type = %s, sector = %s, resources = %s, 
+                    individual = %s, email = %s, phone = %s, address = %s, date = %s
+                    WHERE id = %s   """
+        values = (name, type, sector, resources, individual, email, phone, address, date, id)
+        self.mycursor.execute(sql, values)
+        self.db.commit()
+        return
