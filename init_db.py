@@ -2,6 +2,10 @@ import mysql.connector
 
 
 def initialize():
+    """
+    This function initializes the database and table.
+    """
+    # Create a connection to the MySQL server
     create = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -10,10 +14,13 @@ def initialize():
 
     create_cursor = create.cursor()
 
+    # Create a database if it doesn't exist
     create_cursor.execute("CREATE DATABASE IF NOT EXISTS DB")
 
+    # Show all databases
     create_cursor.execute("SHOW DATABASES")
 
+    # Connect to the newly created database
     db = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -22,6 +29,9 @@ def initialize():
     )
 
     db_cursor = db.cursor()
+    
+    # Reset the table
+    db_cursor.execute("DROP TABLE IF EXISTS list")
 
     db_cursor.execute("""
                     CREATE TABLE IF NOT EXISTS list (
@@ -38,10 +48,15 @@ def initialize():
                     )
                     """)
 
+    # Check if the table is empty
     db_cursor.execute("SELECT COUNT(*) FROM list")
 
+    # If the table is empty, insert some data
     if db_cursor.fetchone()[0] == 0:
+        # SQL query to insert data into the list table
         sql = "INSERT INTO list (id, name, type, sector, resources, individual, email, phone, address, date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+        
+        # Data to be inserted into the list table
         data = [
             (1, 'ABC Tech Solutions', 'Business', 'Technology', 'IT consulting, mentorship', 'John Doe', 'john.doe@abctech.com', '559-111-1111', '123 Main St', '2023-01-01'),
             (2, 'Community Health Clinic', 'Community', 'Healthcare', 'Health education programs', 'Jane Smith', 'jane.smith@healthclinic.org', '559-111-1123', '456 Oak Ave', '2023-02-15'),
@@ -74,13 +89,18 @@ def initialize():
             (29, 'Green Initiative Collective', 'Community', 'Environment', 'Promoting green initiatives and sustainability', 'Jacob Green', 'jacob.green@greeninitiativecollective.org', '559-111-1447', '456 Eco Lane', '2025-05-25'),
             (30, 'Tech Innovate Solutions', 'Business', 'Technology', 'Innovative solutions for tech advancement', 'Lily Tech', 'lily.tech@techinnovatesolutions.com', '559-111-1459', '654 Tech Blvd', '2025-06-30')
                 ]
-        db_cursor.executemany(sql, data)
-        db.commit()
-
+    db_cursor.executemany(sql, data)
+    db.commit()
+    # Print the rows to check if the rows are properly in place
     db_cursor.execute("SELECT * FROM list")
     lists=db_cursor.fetchall()
     for i in lists:
         print(i)
-    return
+    return  
 
-initialize()
+
+def main():
+    initialize()
+    
+if __name__ == "__main__":
+    main()

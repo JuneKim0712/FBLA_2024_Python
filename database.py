@@ -78,7 +78,7 @@ class Database:
     # Method to delete a record from the database
     def delete(self, id):
         sql = "DELETE FROM list WHERE id = %s"
-        self.mycursor.execute(sql, (id))
+        self.mycursor.execute(sql, (id,))
         self.db.commit()
         return
 
